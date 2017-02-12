@@ -1,6 +1,9 @@
 Designed for lazy ones ;)
-It will download, register, start selenium with chromedriver
+It will download, register, start selenium with chromedriver.
 
+Resources 
+* https://sites.google.com/a/chromium.org/chromedriver/downloads
+* http://www.seleniumhq.org/download/
 
 1) download/update fresh selenium version. Also a fresh chromedriver version:
 > ./selenium.sh update
