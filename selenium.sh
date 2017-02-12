@@ -1,5 +1,11 @@
 #!/bin/bash
-path=`pwd`
+
+
+if [ -L $0 ] ; then
+    path=$(dirname $(readlink -f $0)) ;
+else
+    path=$(dirname $0) ;
+fi ;
 
 case $1 in
 	register )
@@ -8,10 +14,16 @@ case $1 in
 	;;
 	update )
 		url=`curl http://www.seleniumhq.org/download/ | grep "Download version" | grep -o -E "https?\:\/\/[a-zA-Z0-9\.\/\-\_]*"`
-		chromeurl=`curl https://sites.google.com/a/chromium.org/chromedriver/downloads | grep "Latest Release:" | grep -o -E "https?\:\/\/[a-zA-Z0-9\.\/\-\_]*" | grep -o ".*chromedriver.*"`
-
+		echo "Downloading selenium ... "
 		wget $url -O $path/selenium.jar
-		wget $chromeurl -O $path/chromedriver
+
+		chromeVer=` curl https://sites.google.com/a/chromium.org/chromedriver/downloads | grep "Latest Release:" | grep -o -E "https?\:\/\/[a-zA-Z0-9\.\/\-\_\?\=]*" | grep -oP "(?<=path=).*"`
+		chromePath=`curl "https://chromedriver.storage.googleapis.com?delimiter=/&prefix=$chromeVer&marker=" | grep -o -E "[^\>]*linux64[^\<]*"`
+		chromeurl="https://chromedriver.storage.googleapis.com/$chromePath"
+		
+		echo "Downloading chromedriver ..."
+		wget $chromeurl -O $path/chromedriver.zip
+		unzip -o chromedriver.zip
 	;;
 	
 	* )
