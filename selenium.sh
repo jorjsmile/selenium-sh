@@ -1,11 +1,6 @@
 #!/bin/bash
 
-
-if [ -L $0 ] ; then
-    path=$(dirname $(readlink -f $0)) ;
-else
-    path=$(dirname $0) ;
-fi ;
+path="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 case $1 in
 	register )
