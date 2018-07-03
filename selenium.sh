@@ -13,7 +13,8 @@ case $1 in
 		echo "Registered in /usr/local/bin/selenium"
 	;;
 	update )
-		url=`curl http://www.seleniumhq.org/download/ | grep "Download version" | grep -o -E "https?\:\/\/[a-zA-Z0-9\.\/\-\_]*"`
+		url=`curl https://www.seleniumhq.org/download/ | grep "Download version" | grep -o -E "https?\:\/\/[a-zA-Z0-9\.\/\-\_]*"`
+
 		echo "Downloading selenium ... "
 		wget $url -O $path/selenium.jar
 
